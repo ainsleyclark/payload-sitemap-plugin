@@ -1,2 +1,1 @@
-# payload-sitemap-plugin
-Sitemap Plugin for PayloadCMS
+# Payload Sitemap Plugin
