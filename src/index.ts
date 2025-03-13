@@ -1,15 +1,9 @@
-import type { CollectionSlug, Config } from 'payload'
+import type { Config } from 'payload'
 
-export type PayloadSitemapPluginConfig = {
-  /**
-   * List of collections to add a custom field
-   */
-  collections?: Partial<Record<CollectionSlug, true>>
-  disabled?: boolean
-}
+import type { SitemapPluginConfig } from './types.js'
 
 export const payloadSitemapPlugin =
-  (pluginOptions: PayloadSitemapPluginConfig) =>
+  (pluginOptions: SitemapPluginConfig) =>
   (config: Config): Config => {
     if (!config.collections) {
       config.collections = []
@@ -63,23 +57,12 @@ export const payloadSitemapPlugin =
       config.admin.components = {}
     }
 
-    if (!config.admin.components.beforeDashboard) {
-      config.admin.components.beforeDashboard = []
-    }
-
-    config.admin.components.beforeDashboard.push(
-      `payload-sitemap-plugin/client#BeforeDashboardClient`,
-    )
-    config.admin.components.beforeDashboard.push(
-      `payload-sitemap-plugin/rsc#BeforeDashboardServer`,
-    )
-
     config.endpoints.push({
       handler: () => {
         return Response.json({ message: 'Hello from custom endpoint' })
       },
       method: 'get',
-      path: '/my-plugin-endpoint',
+      path: '/plugin-sitemap/sitemap.xml',
     })
 
     const incomingOnInit = config.onInit

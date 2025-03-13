@@ -109,5 +109,8 @@
       "sharp"
     ]
   },
-  "registry": "https://registry.npmjs.org/"
+  "registry": "https://registry.npmjs.org/",
+  "dependencies": {
+    "sitemap": "^8.0.0"
+  }
 }
