@@ -136,7 +136,7 @@ export type CustomSitemapRoute = {
 /**
  * Defines how frequently a page is expected to change.
  */
-export type ChangeFrequency = 'always' | 'daily' | 'hourly' | 'monthly' | 'never' | 'weekly' | 'yearly';
+export type ChangeFrequency = 'always' | 'daily' | 'hourly' | 'monthly' | 'never' | 'weekly' | 'yearly'
 
 /**
  * Restricts priority values between 0.0 and 1.0.

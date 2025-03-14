@@ -2,6 +2,8 @@ import type { Config } from 'payload'
 
 import type { SitemapPluginConfig } from './types.js'
 
+import { SitemapGlobal } from './globals/sitemap.js'
+
 export const payloadSitemapPlugin =
   (pluginOptions: SitemapPluginConfig) =>
   (config: Config): Config => {
@@ -9,15 +11,10 @@ export const payloadSitemapPlugin =
       config.collections = []
     }
 
-    config.collections.push({
-      slug: 'plugin-collection',
-      fields: [
-        {
-          name: 'id',
-          type: 'text',
-        },
-      ],
-    })
+    if (!config.globals) {
+      config.globals = [];
+    }
+    config.globals.push(SitemapGlobal);
 
     if (pluginOptions.collections) {
       for (const collectionSlug in pluginOptions.collections) {
