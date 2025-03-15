@@ -4,6 +4,11 @@
   "description": "Payload Sitemap Plugin",
   "license": "MIT",
   "type": "module",
+  "author": {
+    "name": "ainsley.dev",
+    "email": "hello@ainsley.dev",
+    "url": "https://ainsley.dev"
+  },
   "exports": {
     ".": {
       "import": "./src/index.ts",
@@ -30,6 +35,7 @@
     "build": "pnpm copyfiles && pnpm build:types && pnpm build:swc",
     "build:swc": "swc ./src -d ./dist --config-file .swcrc --strip-leading-paths",
     "build:types": "tsc --outDir dist --rootDir ./src",
+    "release": "pnpm clean && pnpm build && npm publish --access public",
     "clean": "rimraf {dist,*.tsbuildinfo}",
     "copyfiles": "copyfiles -u 1 \"src/**/*.{html,css,scss,ttf,woff,woff2,eot,svg,jpg,png,json}\" dist/",
     "dev": "payload run ./dev/server.ts",
