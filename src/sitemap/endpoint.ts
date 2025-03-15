@@ -1,4 +1,7 @@
 import type { PayloadHandler, PayloadRequest, Where } from 'payload'
+import type { ErrorLevel } from 'sitemap/dist/lib/types.js'
+
+import { SitemapStream, streamToPromise } from 'sitemap'
 
 import type { ChangeFrequency, SitemapPluginConfig, SitemapPriority } from '../types.js'
 
@@ -11,7 +14,8 @@ type SitemapRecord = {
 
 export const sitemapXML = (pluginConfig: SitemapPluginConfig): PayloadHandler => {
   return async (req: PayloadRequest): Promise<Response> => {
-    const { payload } = req
+    const { payload } = req;
+    const logger = payload.logger;
 
     if (pluginConfig.disabled) {
       return new Response('Sitemap is disabled', { status: 404 })
@@ -38,9 +42,9 @@ export const sitemapXML = (pluginConfig: SitemapPluginConfig): PayloadHandler =>
       for (const route of pluginConfig.customRoutes) {
         out.push({
           changeFreq: route.changeFreq,
-          lastModified: route.lastMod ? new Date(route.lastMod) : undefined,
+          lastModified: route.lastMod ? route.lastMod : undefined,
           priority: route.priority,
-          url: `${pluginConfig.hostname}${route.loc}`,
+          url,
         })
       }
     }
@@ -100,12 +104,32 @@ export const sitemapXML = (pluginConfig: SitemapPluginConfig): PayloadHandler =>
               collectionConfig.priority ||
               pluginConfig.defaultPriority ||
               0.5,
-            url: `${pluginConfig.hostname}${url}`,
+            url,
           })
         }
       }
     }
 
-    return new Response()
+    /**
+     * Generate the sitemap and return the response to the writer.
+     */
+    try {
+      const stream = new SitemapStream({
+        errorHandler: (error: Error, level: ErrorLevel) => {
+          logger.error(`Error generating sitemap:  ${error}, level: ${level}`)
+        },
+        hostname: pluginConfig.hostname
+      });
+      out.forEach((item) => stream.write(item));
+      stream.end();
+
+      const xmlData = await streamToPromise(stream);
+      return new Response(xmlData.toString(), {
+        headers: { 'Content-Type': 'application/xml' },
+      });
+    } catch (error) {
+      logger.error('Sitemap generation failed', error);
+      return new Response('Error generating sitemap', { status: 500 });
+    }
   }
 }

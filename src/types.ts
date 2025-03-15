@@ -113,7 +113,7 @@ export type CustomSitemapRoute = {
   /**
    * The last modified date of the page.
    */
-  lastMod?: string
+  lastMod?: Date
 
   /**
    * The absolute or relative URL to include in the sitemap.

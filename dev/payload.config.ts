@@ -8,8 +8,8 @@ import { fileURLToPath } from 'url'
 
 import { devUser } from './helpers/credentials.js'
 import { testEmailAdapter } from './helpers/testEmailAdapter.js'
-import { seed } from './seed.js'
 import { Post } from './payload-types.js'
+import { seed } from './seed.js'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)

@@ -2,10 +2,12 @@ import type { Config } from 'payload'
 
 import type { SitemapPluginConfig } from './types.js'
 
+import { ExcludeFromSitemap } from './fields/excludeFromSitemap.js'
 import { SitemapGlobal } from './globals/sitemap.js'
+import { sitemapXML } from './sitemap/endpoint.js'
 
 export const payloadSitemapPlugin =
-  (pluginOptions: SitemapPluginConfig) =>
+  (pluginConfig: SitemapPluginConfig) =>
   (config: Config): Config => {
     if (!config.collections) {
       config.collections = []
@@ -16,20 +18,14 @@ export const payloadSitemapPlugin =
     }
     config.globals.push(SitemapGlobal);
 
-    if (pluginOptions.collections) {
-      for (const collectionSlug in pluginOptions.collections) {
+    if (pluginConfig.collections) {
+      for (const collectionSlug in pluginConfig.collections) {
         const collection = config.collections.find(
           (collection) => collection.slug === collectionSlug,
         )
 
         if (collection) {
-          collection.fields.push({
-            name: 'addedByPlugin',
-            type: 'text',
-            admin: {
-              position: 'sidebar',
-            },
-          })
+          collection.fields.push(ExcludeFromSitemap)
         }
       }
     }
@@ -38,7 +34,7 @@ export const payloadSitemapPlugin =
      * If the plugin is disabled, we still want to keep added collections/fields so the database schema is consistent which is important for migrations.
      * If your plugin heavily modifies the database schema, you may want to remove this property.
      */
-    if (pluginOptions.disabled) {
+    if (pluginConfig.disabled) {
       return config
     }
 
@@ -46,18 +42,8 @@ export const payloadSitemapPlugin =
       config.endpoints = []
     }
 
-    if (!config.admin) {
-      config.admin = {}
-    }
-
-    if (!config.admin.components) {
-      config.admin.components = {}
-    }
-
     config.endpoints.push({
-      handler: () => {
-        return Response.json({ message: 'Hello from custom endpoint' })
-      },
+      handler: sitemapXML(pluginConfig),
       method: 'get',
       path: '/plugin-sitemap/sitemap.xml',
     })
@@ -68,24 +54,6 @@ export const payloadSitemapPlugin =
       // Ensure we are executing any existing onInit functions before running our own.
       if (incomingOnInit) {
         await incomingOnInit(payload)
-      }
-
-      const { totalDocs } = await payload.count({
-        collection: 'plugin-collection',
-        where: {
-          id: {
-            equals: 'seeded-by-plugin',
-          },
-        },
-      })
-
-      if (totalDocs === 0) {
-        await payload.create({
-          collection: 'plugin-collection',
-          data: {
-            id: 'seeded-by-plugin',
-          },
-        })
       }
     }
 
