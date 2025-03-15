@@ -13,7 +13,6 @@ export interface Config {
   collections: {
     posts: Post;
     media: Media;
-    'plugin-collection': PluginCollection;
     users: User;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -23,7 +22,6 @@ export interface Config {
   collectionsSelect: {
     posts: PostsSelect<false> | PostsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
-    'plugin-collection': PluginCollectionSelect<false> | PluginCollectionSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -32,8 +30,12 @@ export interface Config {
   db: {
     defaultIDType: string;
   };
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    sitemap: Sitemap;
+  };
+  globalsSelect: {
+    sitemap: SitemapSelect<false> | SitemapSelect<true>;
+  };
   locale: null;
   user: User & {
     collection: 'users';
@@ -67,8 +69,10 @@ export interface UserAuthOperations {
  */
 export interface Post {
   id: string;
-  addedByPlugin?: string | null;
+  title?: string | null;
+  slug?: string | null;
   updatedAt: string;
+  excludeFromSitemap?: boolean | null;
   createdAt: string;
 }
 /**
@@ -88,15 +92,6 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "plugin-collection".
- */
-export interface PluginCollection {
-  id: string;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -129,10 +124,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: string | Media;
-      } | null)
-    | ({
-        relationTo: 'plugin-collection';
-        value: string | PluginCollection;
       } | null)
     | ({
         relationTo: 'users';
@@ -185,8 +176,10 @@ export interface PayloadMigration {
  * via the `definition` "posts_select".
  */
 export interface PostsSelect<T extends boolean = true> {
-  addedByPlugin?: T;
+  title?: T;
+  slug?: T;
   updatedAt?: T;
+  excludeFromSitemap?: T;
   createdAt?: T;
 }
 /**
@@ -205,15 +198,6 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "plugin-collection_select".
- */
-export interface PluginCollectionSelect<T extends boolean = true> {
-  id?: T;
-  updatedAt?: T;
-  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -261,6 +245,28 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sitemap".
+ */
+export interface Sitemap {
+  id: string;
+  content?: string | null;
+  lastGenerated?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sitemap_select".
+ */
+export interface SitemapSelect<T extends boolean = true> {
+  content?: T;
+  lastGenerated?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

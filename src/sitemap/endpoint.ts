@@ -21,6 +21,16 @@ export const sitemapXML = (pluginConfig: SitemapPluginConfig): PayloadHandler =>
       return new Response('Sitemap is disabled', { status: 404 })
     }
 
+    /**
+     * If the sitemap is in the cache and valid, return it straight away.
+     */
+    const cachedSitemap = await getCachedSitemap(req, pluginConfig);
+    if (cachedSitemap) {
+      return new Response(cachedSitemap, {
+        headers: { 'Content-Type': 'application/xml' },
+      });
+    }
+
     const out: SitemapRecord[] = []
 
     /**
@@ -124,6 +134,10 @@ export const sitemapXML = (pluginConfig: SitemapPluginConfig): PayloadHandler =>
       stream.end();
 
       const xmlData = await streamToPromise(stream);
+
+      // Save the generated sitemap to cache
+      await saveSitemapToCache(req, xmlData.toString());
+
       return new Response(xmlData.toString(), {
         headers: { 'Content-Type': 'application/xml' },
       });

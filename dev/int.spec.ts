@@ -58,33 +58,43 @@ describe('Plugin tests', () => {
       await memoryDB.stop()
     }
   })
+  //
+  // it('should query added by plugin custom endpoint', async () => {
+  //   const response = await restClient.GET('/my-plugin-endpoint')
+  //   expect(response.status).toBe(200)
+  //
+  //   const data = await response.json()
+  //   expect(data).toMatchObject({
+  //     message: 'Hello from custom endpoint',
+  //   })
+  // })
+  //
+  // it('can create post with a custom text field added by plugin', async () => {
+  //   const post = await payload.create({
+  //     collection: 'posts',
+  //     data: {
+  //       addedByPlugin: 'added by plugin',
+  //     },
+  //   })
+  //
+  //   expect(post.addedByPlugin).toBe('added by plugin')
+  // })
 
-  it('should query added by plugin custom endpoint', async () => {
-    const response = await restClient.GET('/my-plugin-endpoint')
-    expect(response.status).toBe(200)
+  it('adds sitemap global for caching', async () => {
+    const sitemapGlobal = payload.globals.config.find(global => global.slug === 'sitemap');
 
-    const data = await response.json()
-    expect(data).toMatchObject({
-      message: 'Hello from custom endpoint',
-    })
+    expect(sitemapGlobal).toBeDefined();
   })
 
-  it('can create post with a custom text field added by plugin', async () => {
-    const post = await payload.create({
-      collection: 'posts',
-      data: {
-        addedByPlugin: 'added by plugin',
-      },
-    })
-
-    expect(post.addedByPlugin).toBe('added by plugin')
+  it('adds the correct fields to the collections', async () => {
+    // payload.collections.posts.config
   })
 
-  it('plugin creates and seeds plugin-collection', async () => {
-    expect(payload.collections['plugin-collection']).toBeDefined()
-
-    const { docs } = await payload.find({ collection: 'plugin-collection' })
-
-    expect(docs).toHaveLength(1)
-  })
+  // it('plugin creates and seeds plugin-collection', async () => {
+  //   expect(payload.collections['plugin-collection']).toBeDefined()
+  //
+  //   const { docs } = await payload.find({ collection: 'plugin-collection' })
+  //
+  //   expect(docs).toHaveLength(1)
+  // })
 })

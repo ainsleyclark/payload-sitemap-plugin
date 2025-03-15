@@ -59,9 +59,9 @@ export default buildConfig({
           priority: 0.6,
 				},
 			},
-			generateURL: (args) => {
+			generateURL: (args): string => {
 				const doc = args.doc as Post
-        return doc.slug;
+        return `/${doc.slug}`;
 			},
 			hostname: 'https://ainsley.dev',
 		}),
