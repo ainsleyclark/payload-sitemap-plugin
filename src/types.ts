@@ -8,20 +8,21 @@ export type SitemapPluginConfig = {
     /**
      * Cache duration in seconds.
      *
-     * @default 3600 (1 hour)
+     * @default 86400 (1 day)
      */
     duration?: number
 
     /**
      * Enable caching of the generated sitemap.
      *
-     * @default true
+     * @default false
      */
     enabled?: boolean
-  }
+  } | boolean
 
   /**
-   * Automatically
+   * Add collections slug either a bool or finer grained
+   * options are aavilable.
    */
   collections: {
     [key in CollectionSlug]?: {
@@ -49,7 +50,7 @@ export type SitemapPluginConfig = {
        * Values are restricted between 0.0 and 1.0.
        */
       priority?: SitemapPriority
-    }
+    } | boolean
   }
 
   /**
@@ -64,7 +65,7 @@ export type SitemapPluginConfig = {
    *
    * @default 0.5
    */
-  defaultPriority?: number
+  defaultPriority?: SitemapPriority
 
   /**
    * Disables the sitemap plugin when set to `true`.
