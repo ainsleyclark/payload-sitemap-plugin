@@ -1,4 +1,4 @@
-import type { CollectionSlug } from 'payload'
+import type { CollectionSlug, PayloadRequest } from 'payload'
 
 export type SitemapPluginConfig = {
   /**
@@ -32,12 +32,6 @@ export type SitemapPluginConfig = {
       changeFreq?: ChangeFrequency
 
       /**
-       * Custom function to generate URLs for documents in this collection.
-       * If not provided, a default URL structure will be used.
-       */
-      generateURL?: (doc: any) => string
-
-      /**
        * If set to `true`, drafts from this collection will be included in the sitemap.
        * Overrides the global `includeDrafts` setting.
        *
@@ -55,13 +49,6 @@ export type SitemapPluginConfig = {
        * Values are restricted between 0.0 and 1.0.
        */
       priority?: SitemapPriority
-
-      /**
-       * Field to use as the document slug in the URL if no generateURL function is provided.
-       *
-       * @default 'slug'
-       */
-      slugField?: string
     }
   }
 
@@ -88,6 +75,12 @@ export type SitemapPluginConfig = {
    * @default false
    */
   disabled?: boolean
+
+  /**
+   * Custom function to generate URLs for documents in this collection.
+   * If not provided, a default URL structure will be used.
+   */
+  generateURL: GenerateSitemapURL
 
   /**
    * The base URL used for generating absolute sitemap URLs.
@@ -142,3 +135,11 @@ export type ChangeFrequency = 'always' | 'daily' | 'hourly' | 'monthly' | 'never
  * Restricts priority values between 0.0 and 1.0.
  */
 export type SitemapPriority = 0.0 | 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 1.0
+
+export type GenerateSitemapURL<T = unknown> = (
+  args: {
+    doc: T
+    locale?: string
+    req: PayloadRequest
+  },
+) => Promise<string> | string
