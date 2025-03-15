@@ -1,7 +1,7 @@
 {
   "name": "payload-sitemap-plugin",
-  "version": "1.0.0",
-  "description": "A blank template to get started with Payload 3.0",
+  "version": "0.0.1",
+  "description": "Payload Sitemap Plugin",
   "license": "MIT",
   "type": "module",
   "exports": {
@@ -59,6 +59,7 @@
     "@types/react-dom": "19.0.3",
     "copyfiles": "2.4.1",
     "cross-env": "^7.0.3",
+    "dotenv": "^16.4.7",
     "eslint": "^9.16.0",
     "eslint-config-next": "15.1.5",
     "graphql": "^16.8.1",

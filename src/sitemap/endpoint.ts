@@ -44,7 +44,7 @@ export const sitemapXML = (pluginConfig: SitemapPluginConfig): PayloadHandler =>
           changeFreq: route.changeFreq,
           lastModified: route.lastMod ? route.lastMod : undefined,
           priority: route.priority,
-          url,
+          url: route.loc
         })
       }
     }
