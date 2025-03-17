@@ -108,6 +108,9 @@ importers:
       rimraf:
         specifier: 3.0.2
         version: 3.0.2
+      semver:
+        specifier: ^7.7.1
+        version: 7.7.1
       sharp:
         specifier: 0.32.6
         version: 0.32.6
