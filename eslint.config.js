@@ -25,9 +25,9 @@ export const defaultESLintIgnores = [
 export default [
   ...payloadEsLintConfig,
   {
-    plugins: [
-      'perfectionist',
-    ],
+    plugins: {
+      perfectionist: require('eslint-plugin-perfectionist'),
+    },
     rules: {
       'no-restricted-exports': 'off',
       'semi': ['error', 'always'],
