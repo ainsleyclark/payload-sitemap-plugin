@@ -9,6 +9,11 @@
 		"email": "hello@ainsley.dev",
 		"url": "https://ainsley.dev"
 	},
+	"keywords": [
+		"payload",
+		"payloadcms",
+		"payload-plugin"
+	],
 	"exports": {
 		".": {
 			"import": "./src/index.ts",
