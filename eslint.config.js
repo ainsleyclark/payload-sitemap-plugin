@@ -1,6 +1,6 @@
 // @ts-check
-
 import payloadEsLintConfig from '@payloadcms/eslint-config'
+import perfectionist from 'eslint-plugin-perfectionist'
 
 export const defaultESLintIgnores = [
   '**/.temp',
@@ -20,13 +20,13 @@ export const defaultESLintIgnores = [
   '**/build/',
   '**/node_modules/',
   '**/temp/',
-]
+];
 
 export default [
   ...payloadEsLintConfig,
   {
     plugins: {
-      perfectionist: require('eslint-plugin-perfectionist'),
+      perfectionist,
     },
     rules: {
       'no-restricted-exports': 'off',
@@ -56,4 +56,4 @@ export default [
       },
     },
   },
-]
+];

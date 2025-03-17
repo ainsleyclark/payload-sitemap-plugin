@@ -133,6 +133,7 @@ Visit the [documentation](https://payloadcms.com/docs/jobs-queue/queues#executin
 
 - Add localisation, ability to specify alternate pages: `<xhtml:link rel="alternate">`
 - Allow `limit` and sitemaps greater than 45,000.
+- Ability for users to specify where the sitemap fields reside on their collection (export Fields).
 
 ## Contributing
 
