@@ -28,6 +28,9 @@ jobs:
       - name: Install Dependencies
         run: pnpm install
 
+      - name: Install semver
+        run: npm install semver
+
       - name: Validate package.json version against tag
         id: validate-tag
         run: |
