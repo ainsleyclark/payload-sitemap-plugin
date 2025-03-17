@@ -1,6 +1,7 @@
+import type { NextServerOptions } from 'next/dist/server/next.js';
+
 import { createServer } from 'http';
 import next from 'next';
-import type { NextServerOptions } from 'next/dist/server/next.js';
 import open from 'open';
 import path from 'path';
 import { fileURLToPath, parse } from 'url';

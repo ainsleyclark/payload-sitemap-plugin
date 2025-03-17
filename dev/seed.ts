@@ -1,6 +1,8 @@
 import type { Payload, RequiredDataFromCollection } from 'payload';
-import { devUser } from './helpers/credentials.js';
+
 import type { Post } from './payload-types.js';
+
+import { devUser } from './helpers/credentials.js';
 
 const posts: RequiredDataFromCollection<Post>[] = [
 	{ slug: 'title-1', excludeFromSitemap: false, title: 'Title 1' },
