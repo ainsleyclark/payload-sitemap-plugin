@@ -1,11 +1,15 @@
 /* eslint-disable no-console */
+
+import type { FieldBase, Payload } from 'payload';
+
 import dotenv from 'dotenv';
 import { MongoMemoryReplSet } from 'mongodb-memory-server';
 import path from 'path';
-import type { FieldBase, Payload } from 'payload';
 import { getPayload } from 'payload';
 import { fileURLToPath } from 'url';
+
 import type { SitemapRecord } from '../src/sitemap/generate.js';
+
 import { NextRESTClient } from './helpers/NextRESTClient.js';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -74,7 +78,7 @@ describe('Plugin tests', () => {
 	});
 
 	it('generates a basic site map and caches response', async () => {
-		const response = await restClient.GET('/plugin-sitemap/sitemap.xml');
+		const response = await restClient.GET('/plugin-sitemap/sitemap/index.xml');
 		expect(response.status).toBe(200);
 		expect(response.headers.get('content-type')).toBe('application/xml');
 

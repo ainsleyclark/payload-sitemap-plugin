@@ -1,10 +1,12 @@
 import type { Config } from 'payload';
+
+import type { SitemapPluginConfig } from './types.js';
+
 import { regenerate } from './endpoints/regenerate.js';
 import { sitemapXML } from './endpoints/xml.js';
 import { ExcludeFromSitemap } from './fields/excludeFromSitemap.js';
 import { SitemapPriority } from './fields/sitemapPriority.js';
 import { SitemapGlobal } from './globals/sitemap.js';
-import type { SitemapPluginConfig } from './types.js';
 
 export const sitemapPlugin = (pluginConfig: SitemapPluginConfig) => (config: Config): Config => {
 	if (!config.collections) {

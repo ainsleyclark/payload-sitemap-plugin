@@ -5,9 +5,11 @@ import { buildConfig } from 'payload';
 import { sitemapPlugin } from 'payload-sitemap-plugin';
 import sharp from 'sharp';
 import { fileURLToPath } from 'url';
+
+import type { Post } from './payload-types.js';
+
 import { devUser } from './helpers/credentials.js';
 import { testEmailAdapter } from './helpers/testEmailAdapter.js';
-import type { Post } from './payload-types.js';
 import { seed } from './seed.js';
 
 const filename = fileURLToPath(import.meta.url);

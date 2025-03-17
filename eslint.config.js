@@ -1,6 +1,5 @@
 // @ts-check
-
-import payloadEsLintConfig from '@payloadcms/eslint-config'
+import payloadEsLintConfig from '@payloadcms/eslint-config';
 
 export const defaultESLintIgnores = [
   '**/.temp',
@@ -20,23 +19,13 @@ export const defaultESLintIgnores = [
   '**/build/',
   '**/node_modules/',
   '**/temp/',
-]
+];
 
 export default [
   ...payloadEsLintConfig,
   {
     rules: {
       'no-restricted-exports': 'off',
-      'semi': ['error', 'always'],
-      'perfectionist/sort-imports': [
-        'error',
-        {
-          type: 'natural',
-          order: 'asc',
-          groups: [['builtin', 'external'], 'internal', 'parent', 'sibling', 'index'],
-          newlinesBetween: 'ignore', // ✅ Prevents extra spacing between imports
-        },
-      ],
     },
   },
   {
@@ -53,4 +42,4 @@ export default [
       },
     },
   },
-]
+];

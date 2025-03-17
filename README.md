@@ -22,8 +22,13 @@
 
 ## Introduction
 
+This plugin provides an automatic way of syncing your Payload collections into a generated Sitemap.
 
-
+- ✅ Multiple mail drivers for your needs or even create your own custom Mailer.
+- ✅ Direct dependency free, all requests are made with the standard lib http.Client.
+- ✅ Send attachments with two struct fields, it's extremely simple.
+- ✅ Send CC & BCC messages.
+- ✅ Extremely lightweight.
 
 ## Installation
 
@@ -78,6 +83,13 @@ Sitemap: https://your-payload-domain.com/api/sitemap/index.xml
 
 Read more about the `robots.txt` file [here](https://developers.google.com/search/docs/advanced/robots/create-robots-txt).
 
+## Fields
+
+Two fields are added to the collections that are specified enabling easy customisation of each document in the sitemap.
+
+- `excludeFromSitemap` -  A checkbox field to specify whether a document should be excluded from the sitemap.
+- `sitemapPriority` - A select field to define the priority of a document in the sitemap, with values ranging from 0 to 1.
+
 ## Caching
 
 If caching is enabled, a `sitemap` global is used to store the results of sitemap generation once it has been created.
@@ -116,6 +128,12 @@ Visit the [documentation](https://payloadcms.com/docs/jobs-queue/queues#executin
 | `includeDrafts`                   | `false`         | If `true`, includes drafts in the sitemap. This is overridden by individual collection settings.                                                      |
 | `includeHomepage`                 | `true`          | If `true`, includes a default `/` entry in the sitemap.                                                                                               |
 
+
+## TODO
+
+- Add localisation, ability to specify alternate pages: `<xhtml:link rel="alternate">`
+- Allow `limit` and sitemaps greater than 45,000.
+- Ability for users to specify where the sitemap fields reside on their collection (export Fields).
 
 ## Contributing
 
