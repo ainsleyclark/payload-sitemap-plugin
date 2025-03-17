@@ -1,8 +1,8 @@
-import type { Payload, PayloadRequest } from 'payload'
+import type { Payload, PayloadRequest } from 'payload';
 
-import type { SitemapPluginConfig } from '../types.js'
+import { SitemapGlobal } from '../globals/sitemap.js';
 
-import { SitemapGlobal } from '../globals/sitemap.js'
+import type { SitemapPluginConfig } from '../types.js';
 
 /**
  * Responsible for caching sitemaps so that it's not

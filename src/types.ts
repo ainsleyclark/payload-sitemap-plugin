@@ -1,4 +1,4 @@
-import type { CollectionSlug, PayloadRequest } from 'payload'
+import type { CollectionSlug, PayloadRequest } from 'payload';
 
 export type SitemapPluginConfig = {
   /**
