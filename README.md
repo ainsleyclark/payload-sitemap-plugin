@@ -21,6 +21,8 @@
 ## Introduction
 
 
+
+
 ## Installation
 
 ```bash
@@ -73,6 +75,28 @@ Sitemap: https://your-payload-domain.com/api/sitemap/index.xml
 ```
 
 Read more about the `robots.txt` file [here](https://developers.google.com/search/docs/advanced/robots/create-robots-txt).
+
+## Config
+
+| Option                            | Type                   | Default         | Description                                                                                                                                           |
+|-----------------------------------|------------------------|-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `hostname`                        | `string`               | Required        | Base URL for absolute links. This is required for generating fully qualified URLs in the sitemap.                                                     |
+| `cache`                           | `boolean               | object`         | `false`                                                                                                                                               | Cache configuration for the sitemap. Can be a boolean (enable/disable) or an object with duration and enabled flags.                                             |
+| `cache.duration`                  | `number`               | `86400` (1 day) | Cache duration in seconds for storing the generated sitemap.                                                                                          |
+| `cache.enabled`                   | `boolean`              | `false`         | If `true`, caching of the generated sitemap will be enabled.                                                                                          |
+| `collections`                     | `object`               | `{}`            | Collection-specific configuration for the sitemap. Each key corresponds to a collection slug, and custom options can be provided for that collection. |
+| `collections.[key]`               | `object                | boolean`        | -                                                                                                                                                     | Settings for a specific collection in the sitemap. If set to `true`, it includes all documents in that collection with default settings.                           |
+| `collections.[key].changeFreq`    | `ChangeFrequency`      | -               | Frequency at which pages in this collection are expected to change. Can be overridden for each document.                                              |
+| `collections.[key].includeDrafts` | `boolean`              | `false`         | If `true`, drafts for this collection will be included in the sitemap.                                                                                |
+| `collections.[key].lastModField`  | `string`               | -               | Custom field to determine the last modified date (`lastmod`) for documents in the collection.                                                         |
+| `collections.[key].priority`      | `SitemapPriority`      | -               | Default priority for documents in this collection. Can be between 0.0 and 1.0.                                                                        |
+| `customRoutes`                    | `CustomSitemapRoute[]` | -               | Custom routes to include in the sitemap with their own configuration (change frequency, last modified date, priority).                                |
+| `defaultPriority`                 | `SitemapPriority`      | `0.5`           | Default priority for all documents in the sitemap. Values range from 0.0 (lowest) to 1.0 (highest).                                                   |
+| `disabled`                        | `boolean`              | `false`         | If set to `true`, disables the sitemap plugin while maintaining database consistency for migrations.                                                  |
+| `generateURL`                     | `GenerateSitemapURL`   | -               | Custom function to generate URLs for documents in this collection. If not provided, a default URL structure will be used.                             |
+| `includeDrafts`                   | `boolean`              | `false`         | If `true`, includes drafts in the sitemap. This is overridden by individual collection settings.                                                      |
+| `includeHomepage`                 | `boolean`              | `true`          | If `true`, includes a default `/` entry in the sitemap if it isn't already included in custom routes.                                                 |
+
 
 ## Caching
 
