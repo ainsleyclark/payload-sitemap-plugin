@@ -24,7 +24,11 @@
 
 This plugin provides an automatic way of syncing your Payload collections into a generated Sitemap.
 
-
+- ✅ Multiple mail drivers for your needs or even create your own custom Mailer.
+- ✅ Direct dependency free, all requests are made with the standard lib http.Client.
+- ✅ Send attachments with two struct fields, it's extremely simple.
+- ✅ Send CC & BCC messages.
+- ✅ Extremely lightweight.
 
 ## Installation
 
