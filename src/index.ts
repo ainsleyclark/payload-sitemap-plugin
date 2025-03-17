@@ -6,7 +6,7 @@ import { SitemapPriority } from './fields/sitemapPriority.js';
 import { SitemapGlobal } from './globals/sitemap.js';
 import type { SitemapPluginConfig } from './types.js';
 
-export const payloadSitemapPlugin = (pluginConfig: SitemapPluginConfig) => (config: Config): Config => {
+export const sitemapPlugin = (pluginConfig: SitemapPluginConfig) => (config: Config): Config => {
 	if (!config.collections) {
 		config.collections = [];
 	}
@@ -45,7 +45,7 @@ export const payloadSitemapPlugin = (pluginConfig: SitemapPluginConfig) => (conf
 		{
 			handler: sitemapXML(pluginConfig),
 			method: 'get',
-			path: '/plugin-sitemap/sitemap.xml',
+			path: '/plugin-sitemap/sitemap/index.xml',
 		},
 		{
 			handler: regenerate(pluginConfig),

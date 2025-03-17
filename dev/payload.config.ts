@@ -2,7 +2,7 @@ import { mongooseAdapter } from '@payloadcms/db-mongodb';
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import path from 'path';
 import { buildConfig } from 'payload';
-import { payloadSitemapPlugin } from 'payload-sitemap-plugin';
+import { sitemapPlugin } from 'payload-sitemap-plugin';
 import sharp from 'sharp';
 import { fileURLToPath } from 'url';
 import { devUser } from './helpers/credentials.js';
@@ -52,7 +52,7 @@ export default buildConfig({
 		await seed(payload);
 	},
 	plugins: [
-		payloadSitemapPlugin({
+		sitemapPlugin({
 			cache: true,
 			collections: {
 				posts: {

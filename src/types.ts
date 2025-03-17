@@ -137,6 +137,9 @@ export type ChangeFrequency = 'always' | 'daily' | 'hourly' | 'monthly' | 'never
  */
 export type SitemapPriority = 0.0 | 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 1.0
 
+/**
+ * Enables url generation for <loc> keys in the sitemap.
+ */
 export type GenerateSitemapURL<T = unknown> = (
   args: {
     doc: T
