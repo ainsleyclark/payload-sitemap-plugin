@@ -1,6 +1,8 @@
 import type { PayloadHandler, PayloadRequest } from 'payload';
-import { generate } from '../sitemap/generate.js';
+
 import type { SitemapPluginConfig } from '../types.js';
+
+import { generate } from '../sitemap/generate.js';
 
 export const regenerate = (config: SitemapPluginConfig): PayloadHandler => {
 	return async (req: PayloadRequest): Promise<Response> => {

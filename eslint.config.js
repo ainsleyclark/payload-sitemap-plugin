@@ -1,6 +1,5 @@
 // @ts-check
-import payloadEsLintConfig from '@payloadcms/eslint-config'
-import perfectionist from 'eslint-plugin-perfectionist'
+import payloadEsLintConfig from '@payloadcms/eslint-config';
 
 export const defaultESLintIgnores = [
   '**/.temp',
@@ -25,21 +24,18 @@ export const defaultESLintIgnores = [
 export default [
   ...payloadEsLintConfig,
   {
-    plugins: {
-      perfectionist,
-    },
     rules: {
       'no-restricted-exports': 'off',
       'semi': ['error', 'always'],
-      'perfectionist/sort-imports': [
-        'error',
-        {
-          type: 'natural',
-          order: 'asc',
-          groups: [['builtin', 'external'], 'internal', 'parent', 'sibling', 'index'],
-          newlinesBetween: 'ignore', // ✅ Prevents extra spacing between imports
-        },
-      ],
+      // 'perfectionist/sort-imports': [
+      //   'error',
+      //   {
+      //     type: 'natural',
+      //     order: 'asc',
+      //     groups: [['builtin', 'external'], 'internal', 'parent', 'sibling', 'index'],
+      //     newlinesBetween: 'ignore', // ✅ Prevents extra spacing between imports
+      //   },
+      // ],
     },
   },
   {

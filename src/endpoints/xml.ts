@@ -1,8 +1,11 @@
 import type { PayloadHandler, PayloadRequest } from 'payload';
-import { SitemapStream, streamToPromise } from 'sitemap';
 import type { ErrorLevel } from 'sitemap/dist/lib/types.js';
-import { generate } from '../sitemap/generate.js';
+
+import { SitemapStream, streamToPromise } from 'sitemap';
+
 import type { SitemapPluginConfig } from '../types.js';
+
+import { generate } from '../sitemap/generate.js';
 
 export const sitemapXML = (pluginConfig: SitemapPluginConfig): PayloadHandler => {
 	return async (req: PayloadRequest): Promise<Response> => {
