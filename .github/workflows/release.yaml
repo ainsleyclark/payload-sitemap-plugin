@@ -1,0 +1,71 @@
+name: Publish to NPM
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  validate-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate package.json version against tag
+        id: validate-tag
+        run: |
+          # Extract tag version without 'v' prefix
+          TAG_VERSION=${GITHUB_REF#refs/tags/v}
+          # Get version from package.json
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          
+          echo "Tag version: $TAG_VERSION"
+          echo "Package.json version: $PKG_VERSION"
+          
+          if [ "$TAG_VERSION" != "$PKG_VERSION" ]; then
+            echo "❌ Error: Tag version ($TAG_VERSION) does not match package.json version ($PKG_VERSION)"
+            exit 1
+          fi
+          
+          echo "✅ Tag version matches package.json version"
+      - name: Validate against published NPM version
+        id: validate-npm
+        run: |
+          # Get package name from package.json
+          PKG_NAME=$(node -p "require('./package.json').name")
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          
+          echo "Package name: $PKG_NAME"
+          
+          # Check if package exists on NPM and get its version
+          NPM_VERSION=$(npm view $PKG_NAME version 2>/dev/null || echo "0.0.0")
+          
+          echo "Current NPM version: $NPM_VERSION"
+          echo "New version to publish: $PKG_VERSION"
+          
+          # Compare versions using node to handle semantic versioning correctly
+          IS_NEWER=$(node -e "process.exit(require('semver').gt('$PKG_VERSION', '$NPM_VERSION') ? 0 : 1)")
+          
+          if [ $IS_NEWER -ne 0 ]; then
+            echo "❌ Error: Version $PKG_VERSION is not greater than current NPM version $NPM_VERSION"
+            exit 1
+          fi
+          
+          echo "✅ Version is newer than what's on NPM"
+      - name: Build package (if needed)
+        run: npm run build
+
+      - name: Publish to NPM
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
