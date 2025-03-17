@@ -1,9 +1,8 @@
 import type { Config } from 'payload';
-
 import { regenerate } from './endpoints/regenerate.js';
-
 import { sitemapXML } from './endpoints/xml.js';
 import { ExcludeFromSitemap } from './fields/excludeFromSitemap.js';
+import { SitemapPriority } from './fields/sitemapPriority.js';
 import { SitemapGlobal } from './globals/sitemap.js';
 import type { SitemapPluginConfig } from './types.js';
 
@@ -24,7 +23,11 @@ export const payloadSitemapPlugin = (pluginConfig: SitemapPluginConfig) => (conf
 			);
 
 			if (collection) {
-				collection.fields.push(ExcludeFromSitemap);
+				collection.fields = [
+					...(collection.fields || []),
+					SitemapPriority,
+					ExcludeFromSitemap,
+				];
 			}
 		}
 	}

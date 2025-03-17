@@ -32,6 +32,8 @@ export default buildConfig({
 				{ name: 'slug', type: 'text' },
 				{ name: 'updatedAt', type: 'date' },
 			],
+			timestamps: true,
+			versions: true,
 		},
 		{
 			slug: 'media',
@@ -51,16 +53,17 @@ export default buildConfig({
 	},
 	plugins: [
 		payloadSitemapPlugin({
+			cache: true,
 			collections: {
 				posts: {
 					includeDrafts: true,
 					lastModField: 'updatedAt',
-          priority: 0.6,
+					priority: 0.6,
 				},
 			},
 			generateURL: (args): string => {
-				const doc = args.doc as Post
-        return `/${doc.slug}`;
+				const doc = args.doc as Post;
+				return `/${doc.slug}`;
 			},
 			hostname: 'https://ainsley.dev',
 		}),
