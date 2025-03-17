@@ -24,18 +24,16 @@
 
 This plugin provides an automatic way of syncing your Payload collections into a generated Sitemap.
 
-- ✅ Multiple mail drivers for your needs or even create your own custom Mailer.
-- ✅ Direct dependency free, all requests are made with the standard lib http.Client.
-- ✅ Send attachments with two struct fields, it's extremely simple.
-- ✅ Send CC & BCC messages.
-- ✅ Extremely lightweight.
+- ✅ Generates XML Sitemaps directly from your Payload collections.
+- ✅ Configurable cache system and endpoint to regenerate the sitemap.
+- ✅ Extensible with fields and config.
+- ✅ Add custom routes to your sitemap.
 
 ## Installation
 
 ```bash
 pnpm i payload-sitemap-plugin 
 ```
-
 
 ## Quick Start
 
@@ -127,7 +125,6 @@ Visit the [documentation](https://payloadcms.com/docs/jobs-queue/queues#executin
 | `generateURL`                     | -               | Custom function to generate URLs for documents in this collection.                                                                                    |
 | `includeDrafts`                   | `false`         | If `true`, includes drafts in the sitemap. This is overridden by individual collection settings.                                                      |
 | `includeHomepage`                 | `true`          | If `true`, includes a default `/` entry in the sitemap.                                                                                               |
-
 
 ## TODO
 
