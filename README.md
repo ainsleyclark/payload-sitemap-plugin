@@ -13,6 +13,8 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Payload CMS Version](https://img.shields.io/badge/Payload%20CMS-3.28.1-2B2D42)](https://payloadcms.com)
+[![Test](https://github.com/ainsleyclark/payload-sitemap-plugin/actions/workflows/test.yaml/badge.svg)](https://github.com/ainsleyclark/payload-sitemap-plugin/actions/workflows/test.yaml)
+[![Lint](https://github.com/ainsleyclark/payload-sitemap-plugin/actions/workflows/lint.yaml/badge.svg)](https://github.com/ainsleyclark/payload-sitemap-plugin/actions/workflows/lint.yaml)
 [![ainsley.dev](https://img.shields.io/badge/-ainsley.dev-black?style=flat&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QA/wD/AP+gvaeTAAAAB3RJTUUH5wEYDzUGL1b35AAABA1JREFUWMPtlttvFVUUxn977ZnZu+W0tLalqRovBAUvQag0xNQbpSIosSSIJC198YknJfHJxDf9A/DBJ0x8MbFACjVqvCASq6FYFLFBvJAaAomkFCmhHGpLO+PDzOmZzpn2nKP4pCs5ycmevb7vW99as/fA//FfD1XO5p1nzuA3NWJHx5T8cVkRBPHHQfRjd0tzyZhOOQIy27bAxET9zCuvvhY0r2kC/OiRABeAN4BL/4oDr9+3lGszPs7UVNfUE23v3Nj5koszR/8N4EXg3XJckFIFuCLUuU7GWNNtTg25cu4syJx0F+gGMuU4UJKAt1Yux1UKV6TVat1qs+OYwQESMwDQCjwKsOv4iZsnwGihwbiuEek2WjJGhMrvv0UujYKa08VFkQvuTXNgz6oVeCIo1CqrZYMRwTiaytERKn44kRQAsAFYDbBrsLgLRQU0GI919TXKiHQaUQ1GBCuCCQKqjg/MqInrM4lZrgc6A1CljHhRAZ4Ip65m77FaOmbJdehC5vzZr1RAf/T6x6NDwb3/uAVfP74GnwCjZasRuXuWXASj9XQme+3t6erqPcB0IvUuYCsUH8YFBRhRNBqvyYpsn0MeOnG6wvc/9x33MPBjSvp24Na/7cDP7Y/gKIURecZoeTBObkSwWg7UNjaOeFfGLgK9KRAPAM8Wc2FeAUaEWtddbEV2WBFtREXkCqvlghE5yOQkvucBHAR+T0BooAtYXLYDI5sewxWFJ/Kk1bI2UTlW5DMFp03+JPwJ+DQFai2wbiEXUgVUas0trmuslm4jUmGi/tuwDVmrpafBuNPVrs7N/wzQA2QTUJbwYLIlOxB0tOGJ4IhqsSJts+T54Rv0lBz1RFh9ZJA385fOAHAshaMNaAF4OcWFQgeUwhMlrlJdnqjaOLkR8Y2WvbWec9VIQeo4sJf8FZ2LmmgWJO1cmm8I7wc2a6XwosGL+v+rFfnYUYplh47Obo5dvZ8Av6TgbSZ8KxYWEGxZn/u7Dbg9t8HNnwF9S2qqzqVUn4vzQF/K+m3AC1A4jGlId0QC8l0BXKVGrahe//okNR99WZAUc6EXuJiC+zxw57wOxKp/DliRAvCFKDUkxS+YIeBwyvryCHuOC0kH6oBOCj/V/gTeA6aK0oefZj3ARGJdRdh1BQ7Eqm8HHk4B/Q7oB1B9acWFEWtDf5STjGbgqbgLcQcqCQ8NL5EUAPuBsRKqz8UVYB+F97QXcSyatSXoWJ8zvB04AFQlkoaBp4HhhaqPR1TdUsLjeVni8TjhVX0odCAkd4AdKeQAHxIwXEb1Odt+Az5IeVQVcTmhgDBWAhtTNl8G9qGAwKfU2N3SnJvi/RFGMjYCD8UFdACNKRsHgZMA6v0j5ZpAlPtNyvqSiJO/AKik60y0ALlUAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIzLTAxLTI0VDE1OjUzOjA2KzAwOjAwm5vntAAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMy0wMS0yNFQxNTo1MzowNiswMDowMOrGXwgAAABXelRYdFJhdyBwcm9maWxlIHR5cGUgaXB0YwAAeJzj8gwIcVYoKMpPy8xJ5VIAAyMLLmMLEyMTS5MUAxMgRIA0w2QDI7NUIMvY1MjEzMQcxAfLgEigSi4A6hcRdPJCNZUAAAAASUVORK5CYII=)](https://ainsley.dev)
 [![Twitter Handle](https://img.shields.io/twitter/follow/ainsleydev)](https://twitter.com/ainsleydev)
 
@@ -76,6 +78,23 @@ Sitemap: https://your-payload-domain.com/api/sitemap/index.xml
 
 Read more about the `robots.txt` file [here](https://developers.google.com/search/docs/advanced/robots/create-robots-txt).
 
+## Caching
+
+If caching is enabled, a `sitemap` global is used to store the results of sitemap generation once it has been created.
+This global contains a JSON representation of the sitemap, and when it was last modified.
+
+The user is responsible for re-generating sitemaps. Refer to the regenerate endpoint below for instructions on how to
+manually trigger sitemap regeneration.
+
+Visit the [documentation](https://payloadcms.com/docs/jobs-queue/queues#executing-jobs) for more details.
+
+## Endpoints
+
+| Endpoint                          | Description                         | Method |
+|-----------------------------------|-------------------------------------|--------|
+| `/api/plugin-sitemap/sitemap.xml` | The generated sitemap XML file.     | `GET`  |
+| `/api/plugin-sitemap/regenerate`  | Endpoint to regenerate the sitemap. | `POST` |
+
 ## Config
 
 | Option                            | Default         | Description                                                                                                                                           |
@@ -97,23 +116,6 @@ Read more about the `robots.txt` file [here](https://developers.google.com/searc
 | `includeDrafts`                   | `false`         | If `true`, includes drafts in the sitemap. This is overridden by individual collection settings.                                                      |
 | `includeHomepage`                 | `true`          | If `true`, includes a default `/` entry in the sitemap.                                                                                               |
 
-
-## Caching
-
-If caching is enabled, a `sitemap` global is used to store the results of sitemap generation once it has been created.
-This global contains a JSON representation of the sitemap, and when it was last modified.
-
-The user is responsible for re-generating sitemaps. Refer to the regenerate endpoint below for instructions on how to
-manually trigger sitemap regeneration.
-
-Visit the [documentation](https://payloadcms.com/docs/jobs-queue/queues#executing-jobs) for more details.
-
-## Endpoints
-
-| Endpoint                          | Description                         | Method |
-|-----------------------------------|-------------------------------------|--------|
-| `/api/plugin-sitemap/sitemap.xml` | The generated sitemap XML file.     | `GET`  |
-| `/api/plugin-sitemap/regenerate`  | Endpoint to regenerate the sitemap. | `POST` |
 
 ## Contributing
 
