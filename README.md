@@ -22,6 +22,7 @@
 
 ## Introduction
 
+This plugin provides an automatic way of syncing your Payload collections into a generated Sitemap.
 
 
 
@@ -77,6 +78,13 @@ Sitemap: https://your-payload-domain.com/api/sitemap/index.xml
 ```
 
 Read more about the `robots.txt` file [here](https://developers.google.com/search/docs/advanced/robots/create-robots-txt).
+
+## Fields
+
+Two fields are added to the collections that are specified enabling easy customisation of each document in the sitemap.
+
+- `excludeFromSitemap` -  A checkbox field to specify whether a document should be excluded from the sitemap.
+- `sitemapPriority` - A select field to define the priority of a document in the sitemap, with values ranging from 0 to 1.
 
 ## Caching
 
