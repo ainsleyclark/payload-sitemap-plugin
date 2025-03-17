@@ -129,6 +129,11 @@ Visit the [documentation](https://payloadcms.com/docs/jobs-queue/queues#executin
 | `includeHomepage`                 | `true`          | If `true`, includes a default `/` entry in the sitemap.                                                                                               |
 
 
+## TODO
+
+- Add localisation, ability to specify alternate pages: `<xhtml:link rel="alternate">`
+- Allow `limit` and sitemaps greater than 45,000.
+
 ## Contributing
 
 Contributions are welcome! If you find any bugs or have suggestions for improvement, please open an
