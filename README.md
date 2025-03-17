@@ -92,10 +92,10 @@ Read more about the `robots.txt` file [here](https://developers.google.com/searc
 | `collections.[key].priority`      | -               | Default priority for documents in this collection. Can be between 0.0 and 1.0.                                                                        |
 | `customRoutes`                    | -               | Custom routes to include in the sitemap with their own configuration (change frequency, last modified date, priority).                                |
 | `defaultPriority`                 | `0.5`           | Default priority for all documents in the sitemap. Values range from 0.0 (lowest) to 1.0 (highest).                                                   |
-| `disabled`                        | `false`         | If set to `true`, disables the sitemap plugin while maintaining database consistency for migrations.                                                  |
-| `generateURL`                     | -               | Custom function to generate URLs for documents in this collection. If not provided, a default URL structure will be used.                             |
+| `disabled`                        | `false`         | If set to `true`, disables the sitemap plugin.                                                                                                        |
+| `generateURL`                     | -               | Custom function to generate URLs for documents in this collection.                                                                                    |
 | `includeDrafts`                   | `false`         | If `true`, includes drafts in the sitemap. This is overridden by individual collection settings.                                                      |
-| `includeHomepage`                 | `true`          | If `true`, includes a default `/` entry in the sitemap if it isn't already included in custom routes.                                                 |
+| `includeHomepage`                 | `true`          | If `true`, includes a default `/` entry in the sitemap.                                                                                               |
 
 
 ## Caching
