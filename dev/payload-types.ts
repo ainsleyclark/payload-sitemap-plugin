@@ -252,7 +252,15 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Sitemap {
   id: string;
-  content?: string | null;
+  content?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   lastGenerated?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
