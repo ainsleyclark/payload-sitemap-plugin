@@ -87,7 +87,7 @@ export type SitemapPluginConfig = {
    * The base URL used for generating absolute sitemap URLs.
    * This is required.
    */
-  hostname: string
+  hostname: ((req: PayloadRequest) => Promise<string> | string) | string
 
   /**
    * If set to `true`, drafts will be included in the sitemap.
