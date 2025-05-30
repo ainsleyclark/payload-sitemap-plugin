@@ -80,23 +80,6 @@
 		"node": "^18.20.2 || >=20.9.0",
 		"pnpm": "^10"
 	},
-	"exports": {
-		".": {
-			"import": "./dist/index.js",
-			"types": "./dist/index.d.ts",
-			"default": "./dist/index.js"
-		},
-		"./client": {
-			"import": "./dist/exports/client.js",
-			"types": "./dist/exports/client.d.ts",
-			"default": "./dist/exports/client.js"
-		},
-		"./rsc": {
-			"import": "./dist/exports/rsc.js",
-			"types": "./dist/exports/rsc.d.ts",
-			"default": "./dist/exports/rsc.js"
-		}
-	},
 	"publishConfig": {
 		"exports": {
 			".": {

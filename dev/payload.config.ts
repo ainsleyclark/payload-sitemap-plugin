@@ -2,12 +2,12 @@ import { mongooseAdapter } from '@payloadcms/db-mongodb';
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import path from 'path';
 import { buildConfig } from 'payload';
-import { sitemapPlugin } from 'payload-sitemap-plugin';
 import sharp from 'sharp';
 import { fileURLToPath } from 'url';
 
 import type { Post } from './payload-types.js';
 
+import { sitemapPlugin } from '../src/index.js';
 import { devUser } from './helpers/credentials.js';
 import { testEmailAdapter } from './helpers/testEmailAdapter.js';
 import { seed } from './seed.js';
