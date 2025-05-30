@@ -1,6 +1,6 @@
 {
 	"name": "payload-sitemap-plugin",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"description": "Payload Sitemap Plugin",
 	"license": "MIT",
 	"type": "module",
