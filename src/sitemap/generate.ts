@@ -43,7 +43,9 @@ export const generate = async (args: GenerateConfig): Promise<SitemapRecord[]> =
 		records.push({
 			changeFreq: 'weekly',
 			priority: 1.0,
-			url: config.hostname,
+			url: typeof config.hostname === 'function'
+				? await config.hostname(req)
+				: config.hostname,
 		});
 	}
 

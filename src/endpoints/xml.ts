@@ -25,7 +25,9 @@ export const sitemapXML = (pluginConfig: SitemapPluginConfig): PayloadHandler =>
 				errorHandler: (error: Error, level: ErrorLevel) => {
 					logger.error(`Error generating sitemap:  ${error}, level: ${level}`);
 				},
-				hostname: pluginConfig.hostname,
+				hostname: typeof pluginConfig.hostname === 'function'
+					? await pluginConfig.hostname(req)
+					: pluginConfig.hostname,
 			});
 			items.forEach((item) => stream.write(item));
 			stream.end();
