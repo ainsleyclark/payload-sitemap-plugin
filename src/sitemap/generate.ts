@@ -127,6 +127,7 @@ export const generate = async (args: GenerateConfig): Promise<SitemapRecord[]> =
 
 				// Call the user defined generate URL function.
 				const url = await config.generateURL({
+					collectionSlug: slug,
 					doc,
 					locale: req.locale ?? undefined,
 					req,
