@@ -6,7 +6,7 @@ import { SitemapCache } from './cache.js';
 
 export type SitemapRecord = {
 	changeFreq?: ChangeFrequency
-	lastModified?: Date
+	lastModified?: string
 	priority?: SitemapPriority
 	url: string
 }
@@ -56,7 +56,7 @@ export const generate = async (args: GenerateConfig): Promise<SitemapRecord[]> =
 		for (const route of config.customRoutes) {
 			records.push({
 				changeFreq: route.changeFreq,
-				lastModified: route.lastMod ? route.lastMod : undefined,
+				lastModified: route.lastMod ? route.lastMod.toISOString() : undefined,
 				priority: route.priority,
 				url: route.loc,
 			});
@@ -120,9 +120,9 @@ export const generate = async (args: GenerateConfig): Promise<SitemapRecord[]> =
 				// Get last modified date
 				let lastModified = undefined;
 				if (collectionConfig.lastModField && doc[collectionConfig.lastModField]) {
-					lastModified = new Date(doc[collectionConfig.lastModField]);
+					lastModified = doc[collectionConfig.lastModField];
 				} else if (doc.updatedAt) {
-					lastModified = new Date(doc.updatedAt);
+					lastModified = doc.updatedAt;
 				}
 
 				// Call the user defined generate URL function.
