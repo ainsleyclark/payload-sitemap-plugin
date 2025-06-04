@@ -1,5 +1,5 @@
 import type { PayloadHandler, PayloadRequest } from 'payload';
-import type { ErrorLevel } from 'sitemap/dist/lib/types.js';
+import type { EnumChangefreq, ErrorLevel, SitemapItemLoose } from 'sitemap/dist/lib/types.js';
 
 import { SitemapStream, streamToPromise } from 'sitemap';
 
@@ -16,6 +16,12 @@ export const sitemapXML = (pluginConfig: SitemapPluginConfig): PayloadHandler =>
 			req,
 			useCache: true,
 		});
+		const sitemapItems: SitemapItemLoose[] = items.map((item) => ({
+			changefreq: item.changeFreq as EnumChangefreq,
+			lastmod: item.lastModified,
+			priority: item.priority,
+			url: item.url,
+		}));
 
 		/**
 		 * Generate the sitemap and return the response to the writer.
@@ -29,7 +35,7 @@ export const sitemapXML = (pluginConfig: SitemapPluginConfig): PayloadHandler =>
 					? await pluginConfig.hostname(req)
 					: pluginConfig.hostname,
 			});
-			items.forEach((item) => stream.write(item));
+			sitemapItems.forEach((item) => stream.write(item));
 			stream.end();
 
 			const xmlData = await streamToPromise(stream);
