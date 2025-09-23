@@ -49,12 +49,15 @@ export const sitemapPlugin = (pluginConfig: SitemapPluginConfig) => (config: Con
 			method: 'get',
 			path: '/plugin-sitemap/sitemap/index.xml',
 		},
-		{
+	];
+
+	if (!pluginConfig.disableRegenerate) {
+		config.endpoints.push({
 			handler: regenerate(pluginConfig),
 			method: 'post',
 			path: '/plugin-sitemap/regenerate',
-		},
-	];
+		});
+	}
 
 	return config;
 };

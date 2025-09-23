@@ -101,10 +101,10 @@ Visit the [documentation](https://payloadcms.com/docs/jobs-queue/queues#executin
 
 ## Endpoints
 
-| Endpoint                                | Description                         | Method |
-|-----------------------------------------|-------------------------------------|--------|
-| `/api/plugin-sitemap/sitemap/index.xml` | The generated sitemap XML file.     | `GET`  |
-| `/api/plugin-sitemap/regenerate`        | Endpoint to regenerate the sitemap. | `POST` |
+| Endpoint                                | Description                                                                                                                      | Method |
+|-----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|--------|
+| `/api/plugin-sitemap/sitemap/index.xml` | The generated sitemap XML file.                                                                                                  | `GET`  |
+| `/api/plugin-sitemap/regenerate`        | Endpoint to regenerate the sitemap. Disable the endpoint with `disableRegenerate` or use middleware to prevent unauthorized use. | `POST` |
 
 ## Config
 
@@ -123,6 +123,7 @@ Visit the [documentation](https://payloadcms.com/docs/jobs-queue/queues#executin
 | `customRoutes`                    | -               | Custom routes to include in the sitemap with their own configuration (change frequency, last modified date, priority).                                |
 | `defaultPriority`                 | `0.5`           | Default priority for all documents in the sitemap. Values range from 0.0 (lowest) to 1.0 (highest).                                                   |
 | `disabled`                        | `false`         | If set to `true`, disables the sitemap plugin.                                                                                                        |
+| `disableRegenerate`               | `false`         | Disable the regenerate endpoint when set to `true`.                                                                                                   |  
 | `generateURL`                     | -               | Custom function to generate URLs for documents in this collection.                                                                                    |
 | `includeDrafts`                   | `false`         | If `true`, includes drafts in the sitemap. This is overridden by individual collection settings.                                                      |
 | `includeHomepage`                 | `true`          | If `true`, includes a default `/` entry in the sitemap.                                                                                               |

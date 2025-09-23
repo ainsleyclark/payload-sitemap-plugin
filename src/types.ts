@@ -78,6 +78,13 @@ export type SitemapPluginConfig = {
   disabled?: boolean
 
   /**
+   * Disable the regenerate endpoint to prevent unauthorized access.
+   *
+   * @default false
+   */
+  disableRegenerate?: boolean
+
+  /**
    * Custom function to generate URLs for documents in this collection.
    * If not provided, a default URL structure will be used.
    */
