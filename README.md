@@ -77,7 +77,7 @@ To make sure search engines are able to find the sitemap XML create a `robots.tx
 and add the following line:
 
 ```
-Sitemap: https://your-payload-domain.com/api/sitemap/index.xml
+Sitemap: https://your-payload-domain.com/api/plugin-sitemap/sitemap/index.xml
 ```
 
 Read more about the `robots.txt` file [here](https://developers.google.com/search/docs/advanced/robots/create-robots-txt).
@@ -101,10 +101,10 @@ Visit the [documentation](https://payloadcms.com/docs/jobs-queue/queues#executin
 
 ## Endpoints
 
-| Endpoint                          | Description                         | Method |
-|-----------------------------------|-------------------------------------|--------|
-| `/api/plugin-sitemap/sitemap.xml` | The generated sitemap XML file.     | `GET`  |
-| `/api/plugin-sitemap/regenerate`  | Endpoint to regenerate the sitemap. | `POST` |
+| Endpoint                                | Description                         | Method |
+|-----------------------------------------|-------------------------------------|--------|
+| `/api/plugin-sitemap/sitemap/index.xml` | The generated sitemap XML file.     | `GET`  |
+| `/api/plugin-sitemap/regenerate`        | Endpoint to regenerate the sitemap. | `POST` |
 
 ## Config
 
