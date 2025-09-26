@@ -111,5 +111,18 @@ describe('Plugin tests', () => {
 		const exists = globalFields.some((f) => f.name === 'extraSetting');
 		expect(exists).toBe(true);
 	});
+
+	it('applies access control to default sitemap fields', () => {
+		const fields = payload.collections['posts'].config.fields as FieldBase[];
+
+		const sitemapFields = ['sitemapPriority', 'excludeFromSitemap'];
+
+		sitemapFields.forEach(fieldName => {
+			const field = fields.find(f => f.name === fieldName);
+			expect(field).toBeDefined();
+			expect(field?.access).toBeDefined();
+			expect(typeof field?.access?.read).toBe('function');
+		});
+	});
 });
 
