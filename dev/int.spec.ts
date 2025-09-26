@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-import type { FieldBase, Payload } from 'payload';
+import type {  FieldBase, Payload } from 'payload';
 
 import dotenv from 'dotenv';
 import { MongoMemoryReplSet } from 'mongodb-memory-server';
@@ -95,6 +95,21 @@ describe('Plugin tests', () => {
 		const contentObj = JSON.parse(global.content as string) as SitemapRecord[];
 		expect(contentObj).toBeDefined();
 		expect(contentObj).toHaveLength(3);
+	});
+
+	it('applies collection fieldOverrides correctly', () => {
+		const fields = payload.collections['posts'].config.fields as FieldBase[];
+		const exists = fields.some((f) => f.name === 'customSEO');
+		expect(exists).toBe(true);
+	});
+
+	it('applies globalOverrides correctly', () => {
+		const sitemapGlobal = payload.globals.config.find(g => g.slug === 'sitemap');
+		expect(sitemapGlobal?.label).toBe('Custom Sitemap Global');
+
+		const globalFields = sitemapGlobal?.fields as FieldBase[];
+		const exists = globalFields.some((f) => f.name === 'extraSetting');
+		expect(exists).toBe(true);
 	});
 });
 
