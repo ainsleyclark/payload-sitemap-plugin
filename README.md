@@ -53,7 +53,15 @@ export default buildConfig({
 				posts: {
 					priority: 0.8,
 					changeFreq: 'weekly',
-					includeDrafts: false
+					includeDrafts: false,
+					fieldOverrides: ({ defaultFields }) => [
+						...defaultFields,
+						{
+							name: 'customSEO',
+							type: 'text',
+							label: 'Custom SEO Field',
+						},
+					],
 				},
 				pages: true
 			},
@@ -64,7 +72,17 @@ export default buildConfig({
 					priority: 0.7,
 					lastMod: new Date('2024-01-01')
 				}
-			]
+			],
+			globalOverrides: {
+				fields: ({ defaultFields }) => [
+					...defaultFields,
+					{
+						name: 'extraSetting',
+						type: 'text',
+						label: 'Extra Setting',
+					},
+				],
+			},
 		})
 	]
 });
@@ -80,14 +98,16 @@ and add the following line:
 Sitemap: https://your-payload-domain.com/api/plugin-sitemap/sitemap/index.xml
 ```
 
-Read more about the `robots.txt` file [here](https://developers.google.com/search/docs/advanced/robots/create-robots-txt).
+Read more about the `robots.txt`
+file [here](https://developers.google.com/search/docs/advanced/robots/create-robots-txt).
 
 ## Fields
 
 Two fields are added to the collections that are specified enabling easy customisation of each document in the sitemap.
 
-- `excludeFromSitemap` -  A checkbox field to specify whether a document should be excluded from the sitemap.
-- `sitemapPriority` - A select field to define the priority of a document in the sitemap, with values ranging from 0 to 1.
+- `excludeFromSitemap` - A checkbox field to specify whether a document should be excluded from the sitemap.
+- `sitemapPriority` - A select field to define the priority of a document in the sitemap, with values ranging from 0 to
+  1.
 
 ## Caching
 
