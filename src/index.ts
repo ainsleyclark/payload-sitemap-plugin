@@ -51,20 +51,18 @@ export const sitemapPlugin = (pluginConfig: SitemapPluginConfig) => (config: Con
 			}
 
 			let defaultFields: Field[] = [
-				...(collection.fields || []),
 				SitemapPriority,
 				ExcludeFromSitemap,
 			];
 
-			// Apply per-collection field overrides if provided,
+			// Apply per-collection field overrides if provided.
 			const collConfig = pluginConfig.collections[collectionSlug];
 			if (typeof collConfig !== 'boolean' && collConfig?.fieldOverrides) {
-				defaultFields = collConfig.fieldOverrides({
-					defaultFields,
-				});
+				defaultFields = collConfig.fieldOverrides({ defaultFields });
 			}
 
-			collection.fields = defaultFields;
+			// Merge the sitemap fields into the collection without overwriting other fields.
+			collection.fields = [...(collection.fields || []), ...defaultFields];
 		}
 	}
 

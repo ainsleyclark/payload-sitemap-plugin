@@ -1,7 +1,7 @@
 import { mongooseAdapter } from '@payloadcms/db-mongodb';
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import path from 'path';
-import { buildConfig } from 'payload';
+import { buildConfig, Field } from 'payload';
 import sharp from 'sharp';
 import { fileURLToPath } from 'url';
 
@@ -59,7 +59,12 @@ export default buildConfig({
 			collections: {
 				posts: {
 					fieldOverrides: ({ defaultFields }) => [
-						...defaultFields,
+						// Make all fields hidden in the UI for testing field overrides.
+						...defaultFields.map(f => ({
+							...f,
+							admin: { ...(f.admin || {}), hidden: true },
+						})) as Field[],
+						// Add a random field in to assert that one exists.
 						{
 							name: 'customSEO',
 							type: 'text',
