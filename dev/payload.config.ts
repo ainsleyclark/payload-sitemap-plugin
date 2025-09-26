@@ -1,7 +1,7 @@
 import { mongooseAdapter } from '@payloadcms/db-mongodb';
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import path from 'path';
-import { buildConfig } from 'payload';
+import { buildConfig, Field } from 'payload';
 import sharp from 'sharp';
 import { fileURLToPath } from 'url';
 
@@ -59,7 +59,10 @@ export default buildConfig({
 			collections: {
 				posts: {
 					fieldOverrides: ({ defaultFields }) => [
-						...defaultFields,
+						...defaultFields.map(f => ({
+							...f,
+							hidden: true,
+						})) as Field[],
 						{
 							name: 'customSEO',
 							type: 'text',

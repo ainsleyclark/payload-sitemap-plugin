@@ -112,7 +112,7 @@ describe('Plugin tests', () => {
 		expect(exists).toBe(true);
 	});
 
-	it('applies access control to default sitemap fields', () => {
+	it('hides default sitemap fields in admin', () => {
 		const fields = payload.collections['posts'].config.fields as FieldBase[];
 
 		const sitemapFields = ['sitemapPriority', 'excludeFromSitemap'];
@@ -120,8 +120,8 @@ describe('Plugin tests', () => {
 		sitemapFields.forEach(fieldName => {
 			const field = fields.find(f => f.name === fieldName);
 			expect(field).toBeDefined();
-			expect(field?.access).toBeDefined();
-			expect(typeof field?.access?.read).toBe('function');
+			expect(field?.admin).toBeDefined();
+			expect(field?.admin?.hidden).toBe(true);
 		});
 	});
 });
