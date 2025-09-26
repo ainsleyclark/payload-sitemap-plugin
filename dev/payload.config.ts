@@ -61,7 +61,7 @@ export default buildConfig({
 					fieldOverrides: ({ defaultFields }) => [
 						...defaultFields.map(f => ({
 							...f,
-							hidden: true,
+							admin: { ...(f.admin || {}), hidden: true },
 						})) as Field[],
 						{
 							name: 'customSEO',
