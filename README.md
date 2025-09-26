@@ -128,30 +128,31 @@ Visit the [documentation](https://payloadcms.com/docs/jobs-queue/queues#executin
 
 ## Config
 
-| Option                            | Default         | Description                                                                                                                                           |
-|-----------------------------------|-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `hostname`                        | Required        | Base URL for absolute links. This is required for generating fully qualified URLs in the sitemap.                                                     |
-| `cache`                           | `false`         | Cache configuration for the sitemap. Can be a boolean (enable/disable) or an object with duration and enabled flags.                                  |
-| `cache.duration`                  | `86400` (1 day) | Cache duration in seconds for storing the generated sitemap.                                                                                          |
-| `cache.enabled`                   | `false`         | If `true`, caching of the generated sitemap will be enabled.                                                                                          |
-| `collections`                     | `{}`            | Collection-specific configuration for the sitemap. Each key corresponds to a collection slug, and custom options can be provided for that collection. |
-| `collections.[key]`               | -               | Settings for a specific collection in the sitemap. If set to `true`, it includes all documents in that collection with default settings.              |
-| `collections.[key].changeFreq`    | -               | Frequency at which pages in this collection are expected to change. Can be overridden for each document.                                              |
-| `collections.[key].includeDrafts` | `false`         | If `true`, drafts for this collection will be included in the sitemap.                                                                                |
-| `collections.[key].lastModField`  | -               | Custom field to determine the last modified date (`lastmod`) for documents in the collection.                                                         |
-| `collections.[key].priority`      | -               | Default priority for documents in this collection. Can be between 0.0 and 1.0.                                                                        |
-| `customRoutes`                    | -               | Custom routes to include in the sitemap with their own configuration (change frequency, last modified date, priority).                                |
-| `defaultPriority`                 | `0.5`           | Default priority for all documents in the sitemap. Values range from 0.0 (lowest) to 1.0 (highest).                                                   |
-| `disabled`                        | `false`         | If set to `true`, disables the sitemap plugin.                                                                                                        |
-| `generateURL`                     | -               | Custom function to generate URLs for documents in this collection.                                                                                    |
-| `includeDrafts`                   | `false`         | If `true`, includes drafts in the sitemap. This is overridden by individual collection settings.                                                      |
-| `includeHomepage`                 | `true`          | If `true`, includes a default `/` entry in the sitemap.                                                                                               |
+| Option                             | Default         | Description                                                                                                                                           |
+|------------------------------------|-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `hostname`                         | Required        | Base URL for absolute links. This is required for generating fully qualified URLs in the sitemap.                                                     |
+| `cache`                            | `false`         | Cache configuration for the sitemap. Can be a boolean (enable/disable) or an object with duration and enabled flags.                                  |
+| `cache.duration`                   | `86400` (1 day) | Cache duration in seconds for storing the generated sitemap.                                                                                          |
+| `cache.enabled`                    | `false`         | If `true`, caching of the generated sitemap will be enabled.                                                                                          |
+| `collections`                      | `{}`            | Collection-specific configuration for the sitemap. Each key corresponds to a collection slug, and custom options can be provided for that collection. |
+| `collections.[key]`                | -               | Settings for a specific collection in the sitemap. If set to `true`, it includes all documents in that collection with default settings.              |
+| `collections.[key].changeFreq`     | -               | Frequency at which pages in this collection are expected to change. Can be overridden for each document.                                              |
+| `collections.[key].includeDrafts`  | `false`         | If `true`, drafts for this collection will be included in the sitemap.                                                                                |
+| `collections.[key].lastModField`   | -               | Custom field to determine the last modified date (`lastmod`) for documents in the collection.                                                         |
+| `collections.[key].priority`       | -               | Default priority for documents in this collection. Can be between 0.0 and 1.0.                                                                        |
+| `collections.[key].fieldOverrides` | -               | Function to override or extend the default fields (`sitemapPriority` and `excludeFromSitemap`) for this collection. Returns a new array of fields.    |
+| `customRoutes`                     | -               | Custom routes to include in the sitemap with their own configuration (change frequency, last modified date, priority).                                |
+| `defaultPriority`                  | `0.5`           | Default priority for all documents in the sitemap. Values range from 0.0 (lowest) to 1.0 (highest).                                                   |
+| `disabled`                         | `false`         | If set to `true`, disables the sitemap plugin.                                                                                                        |
+| `generateURL`                      | -               | Custom function to generate URLs for documents in this collection.                                                                                    |
+| `includeDrafts`                    | `false`         | If `true`, includes drafts in the sitemap. This is overridden by individual collection settings.                                                      |
+| `includeHomepage`                  | `true`          | If `true`, includes a default `/` entry in the sitemap.                                                                                               |
+| `globalOverrides`                  | `true`          | Function to override or extend fields on the sitemap global used for caching. Returns a new array of fields.                                          |
 
 ## TODO
 
 - Add localisation, ability to specify alternate pages: `<xhtml:link rel="alternate">`
 - Allow `limit` and sitemaps greater than 45,000.
-- Ability for users to specify where the sitemap fields reside on their collection (export Fields).
 
 ## Contributing
 
