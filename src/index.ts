@@ -1,4 +1,4 @@
-import type { Config } from 'payload';
+import type { Config, Field, GlobalConfig } from 'payload';
 
 import type { SitemapPluginConfig } from './types.js';
 
@@ -13,24 +13,58 @@ export const sitemapPlugin = (pluginConfig: SitemapPluginConfig) => (config: Con
 		config.collections = [];
 	}
 
+	/**
+	 * Setup sitemap global with optional overrides.
+	 */
+	let globalWithOverrides: GlobalConfig = {
+		...SitemapGlobal,
+		...pluginConfig.globalOverrides,
+		fields: SitemapGlobal.fields,
+	};
+
+	// Apply field overrides for global if provided
+	if (pluginConfig.globalOverrides?.fields) {
+		globalWithOverrides = {
+			...globalWithOverrides,
+			fields: pluginConfig.globalOverrides.fields({
+				defaultFields: SitemapGlobal.fields ?? [],
+			}),
+		};
+	}
+
 	config.globals = [
 		...(config.globals || []),
-		SitemapGlobal,
+		globalWithOverrides,
 	];
 
+	/**
+	 * Attach the sitemap fields to each collection
+	 */
 	if (pluginConfig.collections) {
 		for (const collectionSlug in pluginConfig.collections) {
 			const collection = config.collections.find(
 				(collection) => collection.slug === collectionSlug,
 			);
 
-			if (collection) {
-				collection.fields = [
-					...(collection.fields || []),
-					SitemapPriority,
-					ExcludeFromSitemap,
-				];
+			if (!collection) {
+				continue
 			}
+
+			let defaultFields: Field[] = [
+				...(collection.fields || []),
+				SitemapPriority,
+				ExcludeFromSitemap,
+			];
+
+			// Apply per-collection field overrides if provided,
+			const collConfig = pluginConfig.collections[collectionSlug];
+			if (typeof collConfig !== 'boolean' && collConfig?.fieldOverrides) {
+				defaultFields = collConfig.fieldOverrides({
+					defaultFields,
+				});
+			}
+
+			collection.fields = defaultFields;
 		}
 	}
 

@@ -1,4 +1,4 @@
-import type { CollectionSlug, PayloadRequest } from 'payload';
+import type { CollectionSlug, Field, GlobalConfig, PayloadRequest } from 'payload';
 
 export type SitemapPluginConfig = {
   /**
@@ -33,6 +33,11 @@ export type SitemapPluginConfig = {
       changeFreq?: ChangeFrequency
 
       /**
+       * Override the sitemap fields added to this collection
+       */
+      fieldOverrides?: FieldsOverride
+
+      /**
        * If set to `true`, drafts from this collection will be included in the sitemap.
        * Overrides the global `includeDrafts` setting.
        *
@@ -45,7 +50,7 @@ export type SitemapPluginConfig = {
        */
       lastModField?: string
 
-      /**
+    /**
        * Default priority for items in this collection.
        * Values are restricted between 0.0 and 1.0.
        */
@@ -82,6 +87,13 @@ export type SitemapPluginConfig = {
    * If not provided, a default URL structure will be used.
    */
   generateURL: GenerateSitemapURL
+
+  /**
+   * Override the sitemap global configuration
+   */
+  globalOverrides?: {
+    fields?: FieldsOverride
+  } & Partial<Omit<GlobalConfig, 'fields'>>
 
   /**
    * The base URL used for generating absolute sitemap URLs.
@@ -136,6 +148,11 @@ export type ChangeFrequency = 'always' | 'daily' | 'hourly' | 'monthly' | 'never
  * Restricts priority values between 0.0 and 1.0.
  */
 export type SitemapPriority = 0.0 | 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 1.0
+
+/**
+ * A way to override the default global fields.
+ */
+export type FieldsOverride = (args: { defaultFields: Field[] }) => Field[]
 
 /**
  * Enables url generation for <loc> keys in the sitemap.

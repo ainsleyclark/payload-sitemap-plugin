@@ -58,6 +58,13 @@ export default buildConfig({
 			cache: true,
 			collections: {
 				posts: {
+					fieldOverrides: ({ defaultFields }) => [
+						...defaultFields,
+						{
+							name: 'customSEO',
+							type: 'text',
+						},
+					],
 					includeDrafts: true,
 					lastModField: 'updatedAt',
 					priority: 0.6,
@@ -66,6 +73,16 @@ export default buildConfig({
 			generateURL: (args): string => {
 				const doc = args.doc as Post;
 				return `/${doc.slug}`;
+			},
+			globalOverrides: {
+				fields: ({ defaultFields }) => [
+					...defaultFields,
+					{
+						name: 'extraSetting',
+						type: 'text',
+					},
+				],
+				label: 'Custom Sitemap Global',
 			},
 			hostname: 'https://ainsley.dev',
 		}),
